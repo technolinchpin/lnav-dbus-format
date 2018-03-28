@@ -1,0 +1,53 @@
+{
+ 	"dbus" : {
+ 		"title"			: "dbusmonitor log format",
+ 		"description"	: "dbusmonitor log parser",
+ 		"url"			: "",
+ 		"regex" : {
+ 			"dbus-1": {
+ 				"pattern" : "^(?<type>\\w+)\\s+(?<timestamp>\\d{1,10}.\\d{1,6})\\s+(?<serial>\\d+)\\s+(?<sender>:\\d+.\\d+)\\s+\\<(?<receiver>\\w+)\\>\\s+(?<body>.*)$"
+				},
+ 			"dbus-2": {
+ 				"pattern" : "^(?<type>\\w+)\\s+(?<timestamp>\\d{1,10}.\\d{1,6})\\s+(?<serial>\\d+)\\s+(?<sender>[\\w.]+)\\s+(?<receiver>:\\d+.\\d+)\\s+(?<body>.*)$"
+				},
+			"dbus-3": {
+ 				"pattern" : "^(?<type>\\w+)\\s+(?<timestamp>\\d{1,10}.\\d{1,6})\\s+(?<serial>\\d+)\\s+(?<sender>:\\d+.\\d+)\\s+(?<receiver>.)\\s+(?<body>.*)$"
+				}
+ 			},
+ 		
+		"timestamp-field"   : "timestamp",
+		"level-field" : "type",
+
+		"timestamp-format" : [
+			"%s.%f" 
+			 
+		],
+		
+		
+ 		"value" : {
+						
+			"type"	        : { "kind" : "string", "identifier" : true },
+ 			"serial"	: { "kind" : "integer", "identifier" : false },
+			"sender"	: { "kind" : "string", "identifier" : false },
+ 			"receiver"	: { "kind" : "string", "identifier" : true },
+			"body"          : { "kind" : "string"}
+ 			
+ 		},
+ 		"sample" : [
+ 			{
+ 				"line" : "sig   1521480300.159570   6700   :3.3    <none>     /org/freedesktop/NetworkManager org.dbus"
+ 			},
+ 			
+			{
+ 				"line" : "sig   1521433300.159570   6450   :31.3    <none>     /org/freedesktop/NetworkManager "
+ 			},
+			{
+ 				"line" : "sig   1521433300.159570   6450   :31.3    org/freedesktop/NetworkManager      org.freedsktop.name NameLost"
+ 			},
+			{
+ 				"line" : "sig   1521433300.159570   6450   org.freedsktop.name   :31.3    org/freedesktop/NetworkManager"
+ 			}
+
+ 		]
+ 	}
+ }
